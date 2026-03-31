@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import Register from "./page/Register";
 import PrivateRoute from "./routes/PrivateRoute";
 import Tenants from "./page/Tenants";
-import Projects from "./page/projects";
+import Projects from "./page/Projects";
 import Tasks from "./page/Tasks";
 import Notifications from "./page/Notifications";
 import Settings from "./page/Settings";
