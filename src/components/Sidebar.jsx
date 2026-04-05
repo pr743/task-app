@@ -89,20 +89,14 @@ function Sidebar() {
           x: isDesktop ? 0 : open ? 0 : -260,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 25 }}
-        className={`
-          fixed md:relative 
-          top-0 left-0 z-50 
-          h-screen 
-          bg-gray-900 text-white 
-          flex flex-col
-          ${isDesktop ? "w-64" : open ? "w-64" : "w-16"}
-        `}
+        className={`fixed md:relative top-0 left-0 z-50 h-screen bg-gray-900 text-white flex flex-col ${isDesktop ? "w-64" : open ? "w-64" : "w-16"
+          }`}
       >
 
         <div className="flex items-center justify-between px-3 py-4 border-b border-gray-800">
-          {open || isDesktop ? (
+          {(open || isDesktop) && (
             <h1 className="font-bold text-lg">TaskFlow</h1>
-          ) : null}
+          )}
 
           {!isDesktop && open && (
             <button onClick={() => setOpen(false)}>
@@ -113,14 +107,14 @@ function Sidebar() {
 
 
         {(open || isDesktop) && (
-          <div className="px-4 mb-4 mt-4">
+          <div className="px-4 mt-4">
             <p className="text-xs text-gray-400">Logged in as</p>
             <p className="font-semibold text-sm">{firstName}</p>
           </div>
         )}
 
 
-        <div className="flex-1 px-2 space-y-2 mt-2">
+        <div className="flex-1 overflow-y-auto px-2 space-y-2 mt-4">
           {menu.map((item, index) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
@@ -133,13 +127,10 @@ function Sidebar() {
                 className={`flex items-center gap-3 px-3 py-3 rounded-lg transition ${active ? "bg-indigo-600" : "hover:bg-gray-800"
                   }`}
               >
-                <Icon size={20} className="flex-shrink-0" />
-
+                <Icon size={20} />
 
                 {(open || isDesktop) && (
-                  <span className="text-sm whitespace-nowrap">
-                    {item.name}
-                  </span>
+                  <span className="text-sm">{item.name}</span>
                 )}
               </Link>
             );
@@ -147,12 +138,12 @@ function Sidebar() {
         </div>
 
 
-        <div className="px-2 pb-4 border-t border-gray-800">
+        <div className="p-2 border-t border-gray-800">
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-3 w-full rounded-lg hover:bg-red-600 transition"
           >
-            <LogOut size={20} className="flex-shrink-0" />
+            <LogOut size={20} />
 
             {(open || isDesktop) && (
               <span className="text-sm">Logout</span>
