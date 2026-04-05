@@ -91,10 +91,6 @@ function Dashboard() {
                                     <span className="capitalize">{p.status}</span>
                                 </div>
 
-                                <div className="flex justify-between text-sm mt-1 text-gray-600">
-                                    <span>Team</span>
-                                    <span>{p.team} Members</span>
-                                </div>
                             </div>
                         ))}
                     </div>
