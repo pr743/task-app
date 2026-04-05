@@ -71,7 +71,6 @@ function Dashboard() {
                 ">
                     <StatCard title="Projects" value={stats.projects} icon={<Folder />} color="indigo" />
                     <StatCard title="Tasks" value={stats.tasks} icon={<CheckSquare />} color="green" />
-                    <StatCard title="Team" value={stats.members} icon={<Users />} color="blue" />
                     <StatCard title="Alerts" value={stats.notifications} icon={<Bell />} color="red" />
                 </div>
 

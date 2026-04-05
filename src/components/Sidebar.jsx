@@ -57,20 +57,16 @@ function Sidebar() {
     <>
 
       <div className="md:hidden sticky top-0 z-50 bg-gray-900 text-white px-4 py-3 flex items-center justify-between">
-
-
         <button
           onClick={() => setOpen(true)}
-          className="p-2 rounded-md hover:bg-gray-800 transition"
+          className="p-2 rounded-md hover:bg-gray-800"
         >
           <Menu size={24} />
         </button>
 
-
         <h1 className="text-sm font-semibold">TaskFlow</h1>
 
-
-        <div className="w-6"></div>
+        <div className="w-6" />
       </div>
 
 
@@ -93,29 +89,38 @@ function Sidebar() {
           x: isDesktop ? 0 : open ? 0 : -260,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 25 }}
-        className="fixed md:relative top-0 left-0 z-50 w-64 h-screen bg-gray-900 text-white flex flex-col"
+        className={`
+          fixed md:relative 
+          top-0 left-0 z-50 
+          h-screen 
+          bg-gray-900 text-white 
+          flex flex-col
+          ${isDesktop ? "w-64" : open ? "w-64" : "w-16"}
+        `}
       >
 
-        <div className="flex justify-between items-center px-4 py-4 border-b border-gray-800 md:hidden">
-          <h1 className="font-bold text-lg">Menu</h1>
-          <button onClick={() => setOpen(false)}>
-            <X />
-          </button>
+        <div className="flex items-center justify-between px-3 py-4 border-b border-gray-800">
+          {open || isDesktop ? (
+            <h1 className="font-bold text-lg">TaskFlow</h1>
+          ) : null}
+
+          {!isDesktop && open && (
+            <button onClick={() => setOpen(false)}>
+              <X />
+            </button>
+          )}
         </div>
 
 
-        <h1 className="hidden md:block font-bold text-2xl px-4 mt-6 mb-6">
-          TaskFlow
-        </h1>
+        {(open || isDesktop) && (
+          <div className="px-4 mb-4 mt-4">
+            <p className="text-xs text-gray-400">Logged in as</p>
+            <p className="font-semibold text-sm">{firstName}</p>
+          </div>
+        )}
 
 
-        <div className="px-4 mb-4">
-          <p className="text-xs text-gray-400">Logged in as</p>
-          <p className="font-semibold text-sm">{firstName}</p>
-        </div>
-
-
-        <div className="flex-1 px-2 space-y-1 overflow-y-auto">
+        <div className="flex-1 px-2 space-y-2 mt-2">
           {menu.map((item, index) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
@@ -125,11 +130,17 @@ function Sidebar() {
                 key={index}
                 to={item.path}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition ${active ? "bg-indigo-600" : "hover:bg-gray-800"
+                className={`flex items-center gap-3 px-3 py-3 rounded-lg transition ${active ? "bg-indigo-600" : "hover:bg-gray-800"
                   }`}
               >
-                <Icon size={20} />
-                <span className="text-sm">{item.name}</span>
+                <Icon size={20} className="flex-shrink-0" />
+
+
+                {(open || isDesktop) && (
+                  <span className="text-sm whitespace-nowrap">
+                    {item.name}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -139,10 +150,13 @@ function Sidebar() {
         <div className="px-2 pb-4 border-t border-gray-800">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-3 py-2.5 w-full rounded-lg hover:bg-red-600 transition"
+            className="flex items-center gap-3 px-3 py-3 w-full rounded-lg hover:bg-red-600 transition"
           >
-            <LogOut size={20} />
-            <span className="text-sm">Logout</span>
+            <LogOut size={20} className="flex-shrink-0" />
+
+            {(open || isDesktop) && (
+              <span className="text-sm">Logout</span>
+            )}
           </button>
         </div>
       </motion.div>
